@@ -1,4 +1,4 @@
-# 🐢 阳阳Code
+# 🐢 YY-Code
 
 > 魏志阳用纸带手搓的CLI工具，送朋友的特别礼物。
 
@@ -37,7 +37,7 @@ yycode
 
 ## 彩蛋
 
-在阳阳Code中输入：
+在YY-Code中输入：
 ```
 /gift
 ```
@@ -82,6 +82,10 @@ bun run dev
 ## 作者
 
 **魏志阳** - 纸带手搓工程师
+
+## GitHub
+
+https://github.com/sypw233/YY-Code
 
 ## 许可证
 

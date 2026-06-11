@@ -2,7 +2,7 @@
 chcp 65001 >nul
 setlocal enabledelayedexpansion
 
-:: YangYangCode Launcher
+:: YY-Code Launcher
 :: Made by WeiZhiYang
 
 :: Get script directory

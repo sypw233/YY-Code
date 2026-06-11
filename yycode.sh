@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# YangYangCode Launcher
+# YY-Code Launcher
 # Made by WeiZhiYang
 
 # Get script directory
