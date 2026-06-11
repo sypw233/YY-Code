@@ -79,14 +79,6 @@ bun run dev
 └── package.json        # 项目配置
 ```
 
-## 作者
-
-**魏志阳** - 纸带手搓工程师
-
-## GitHub
-
-https://github.com/sypw233/YY-Code
-
 ## 许可证
 
 仅供学习研究使用。源码版权归 Anthropic 所有。
