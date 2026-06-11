@@ -1,35 +1,43 @@
 #!/bin/bash
 
-# 阳阳Code 启动脚本
-# 魏志阳用纸带手搓的CLI工具
+# YangYangCode Launcher
+# Made by WeiZhiYang
 
-# 获取脚本所在目录
+# Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# 检查 Bun 是否安装
+# Add Bun to PATH
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Check if Bun is installed
 if ! command -v bun &> /dev/null; then
-    echo "[!] 没有检测到 Bun，正在安装..."
+    echo "[!] Bun not found, installing..."
     curl -fsSL https://bun.sh/install | bash
     if [ $? -ne 0 ]; then
-        echo "[X] Bun 安装失败，请手动安装：https://bun.sh"
+        echo "[X] Bun install failed. Please install manually: https://bun.sh"
         exit 1
     fi
-    # 添加到 PATH
-    export BUN_INSTALL="$HOME/.bun"
-    export PATH="$BUN_INSTALL/bin:$PATH"
 fi
 
-# 进入项目目录并启动
-cd "$SCRIPT_DIR"
+# Change to project directory
+cd "$SCRIPT_DIR" || exit 1
 
-# 如果没有安装依赖，先安装
+# Install dependencies if needed
 if [ ! -d "node_modules" ]; then
-    echo "[*] 首次运行，正在安装依赖..."
+    echo "[*] First run, installing dependencies..."
     bun install
+    if [ $? -ne 0 ]; then
+        echo "[X] Dependency install failed"
+        exit 1
+    fi
     echo ""
 fi
 
-# 启动阳阳Code
-echo "🐢 正在启动阳阳Code..."
+# Launch YangYangCode
+echo ""
+echo "  ========================================"
+echo "   YangYangCode - Loading..."
+echo "  ========================================"
 echo ""
 bun run dev "$@"

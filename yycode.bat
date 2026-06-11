@@ -1,36 +1,53 @@
 @echo off
 chcp 65001 >nul
-setlocal
+setlocal enabledelayedexpansion
 
-:: 阳阳Code 启动脚本
-:: 魏志阳用纸带手搓的CLI工具
+:: YangYangCode Launcher
+:: Made by WeiZhiYang
 
-:: 获取脚本所在目录
+:: Get script directory
 set "SCRIPT_DIR=%~dp0"
 
-:: 检查 Bun 是否安装
+:: Add Bun to PATH if not already there
+set "BUN_PATH=%USERPROFILE%\.bun\bin"
+echo %PATH% | findstr /I /C:"%BUN_PATH%" >nul
+if %errorlevel% neq 0 (
+    set "PATH=%PATH%;%BUN_PATH%"
+)
+
+:: Check if Bun is installed
 where bun >nul 2>nul
 if %errorlevel% neq 0 (
-    echo [!] 没有检测到 Bun，正在安装...
+    echo [!] Bun not found, installing...
     powershell -c "irm bun.sh/install.ps1 | iex"
     if %errorlevel% neq 0 (
-        echo [X] Bun 安装失败，请手动安装：https://bun.sh
+        echo [X] Bun install failed. Please install manually: https://bun.sh
         pause
         exit /b 1
     )
+    :: Refresh PATH
+    set "PATH=%PATH%;%BUN_PATH%"
 )
 
-:: 进入项目目录并启动
+:: Change to project directory
 cd /d "%SCRIPT_DIR%"
 
-:: 如果没有安装依赖，先安装
+:: Install dependencies if needed
 if not exist "node_modules" (
-    echo [*] 首次运行，正在安装依赖...
+    echo [*] First run, installing dependencies...
     call bun install
+    if %errorlevel% neq 0 (
+        echo [X] Dependency install failed
+        pause
+        exit /b 1
+    )
     echo.
 )
 
-:: 启动阳阳Code
-echo 🐢 正在启动阳阳Code...
+:: Launch YangYangCode
+echo.
+echo  ========================================
+echo   YangYangCode - Loading...
+echo  ========================================
 echo.
 call bun run dev %*
