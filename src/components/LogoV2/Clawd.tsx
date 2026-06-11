@@ -14,51 +14,47 @@ type Props = {
 // vary only the parts that change (eyes, arms) while keeping the body/bg spans
 // stable. All poses end up 9 cols wide.
 //
-// arms-up: the row-2 arm shapes (▝▜ / ▛▘) move to row 1 as their
-// bottom-heavy mirrors (▗▟ / ▙▖) — same silhouette, one row higher.
-//
-// look-* use top-quadrant eye chars (▙/▟) so both eyes change from the
-// default (▛/▜, bottom pupils) — otherwise only one eye would appear to move.
+// Turtle mascot for 阳阳Code
 type Segments = {
-  /** row 1 left (no bg): optional raised arm + side */
+  /** row 1 left (no bg): head */
   r1L: string;
   /** row 1 eyes (with bg): left-eye, forehead, right-eye */
   r1E: string;
-  /** row 1 right (no bg): side + optional raised arm */
+  /** row 1 right (no bg): head right */
   r1R: string;
-  /** row 2 left (no bg): arm + body curve */
+  /** row 2 left (no bg): shell left */
   r2L: string;
-  /** row 2 right (no bg): body curve + arm */
+  /** row 2 right (no bg): shell right */
   r2R: string;
 };
 const POSES: Record<ClawdPose, Segments> = {
   default: {
-    r1L: ' ▐',
+    r1L: ' ╭━',
     r1E: '▛███▜',
-    r1R: '▌',
-    r2L: '▝▜',
-    r2R: '▛▘'
+    r1R: '━╮',
+    r2L: '╰━',
+    r2R: '━╯'
   },
   'look-left': {
-    r1L: ' ▐',
-    r1E: '▟███▟',
-    r1R: '▌',
-    r2L: '▝▜',
-    r2R: '▛▘'
+    r1L: ' ╭━',
+    r1E: '▟███▜',
+    r1R: '━╮',
+    r2L: '╰━',
+    r2R: '━╯'
   },
   'look-right': {
-    r1L: ' ▐',
-    r1E: '▙███▙',
-    r1R: '▌',
-    r2L: '▝▜',
-    r2R: '▛▘'
+    r1L: ' ╭━',
+    r1E: '▛███▙',
+    r1R: '━╮',
+    r2L: '╰━',
+    r2R: '━╯'
   },
   'arms-up': {
-    r1L: '▗▟',
+    r1L: '╭━━',
     r1E: '▛███▜',
-    r1R: '▙▖',
-    r2L: ' ▜',
-    r2R: '▛ '
+    r1R: '━━╮',
+    r2L: '╰━',
+    r2R: '━╯'
   }
 };
 
@@ -66,8 +62,8 @@ const POSES: Record<ClawdPose, Segments> = {
 // sense. Arm poses fall back to default.
 const APPLE_EYES: Record<ClawdPose, string> = {
   default: ' ▗   ▖ ',
-  'look-left': ' ▘   ▘ ',
-  'look-right': ' ▝   ▝ ',
+  'look-left': ' ▘   ▖ ',
+  'look-right': ' ▗   ▝ ',
   'arms-up': ' ▗   ▖ '
 };
 export function Clawd(t0) {
@@ -164,7 +160,7 @@ export function Clawd(t0) {
   }
   let t11;
   if ($[22] === Symbol.for("react.memo_cache_sentinel")) {
-    t11 = <Text color="clawd_body">{"  "}▘▘ ▝▝{"  "}</Text>;
+    t11 = <Text color="clawd_body">{" "}▗▄▄▖ ▗▄▄▖{" "}</Text>;
     $[22] = t11;
   } else {
     t11 = $[22];
@@ -220,7 +216,7 @@ function AppleTerminalClawd(t0) {
   let t7;
   if ($[6] === Symbol.for("react.memo_cache_sentinel")) {
     t6 = <Text backgroundColor="clawd_body">{" ".repeat(7)}</Text>;
-    t7 = <Text color="clawd_body">▘▘ ▝▝</Text>;
+    t7 = <Text color="clawd_body">▗▄▄▖▗▄▄▖</Text>;
     $[6] = t6;
     $[7] = t7;
   } else {

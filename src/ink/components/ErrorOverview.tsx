@@ -53,10 +53,11 @@ export default function ErrorOverview({
       <Box>
         <Text backgroundColor="ansi:red" color="ansi:white">
           {' '}
-          ERROR{' '}
+          报错了{' '}
         </Text>
 
         <Text> {error.message}</Text>
+        <Text dimColor> （不关我事）</Text>
       </Box>
 
       {origin && filePath && <Box marginTop={1}>
